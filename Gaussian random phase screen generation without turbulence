@@ -1,0 +1,29 @@
+clc;
+% Gaussian random phase screen generation without turbulence
+
+%%
+ % Set parameters
+ N = 128;    % Number of points in the phase screen
+ delta = 0.1;% Sampling interval (in meters)
+ kmax = pi/delta; % Maximum spatial frequency (in radians/meter)
+ sigma = 10;  % Standard deviation of Gaussian function (in pixels)
+ 
+ % Generate spatial frequency grid
+ dk = 2*kmax/N;
+ [kx, ky] = meshgrid(-kmax:dk:kmax-dk, -kmax:dk:kmax-dk);
+ k = sqrt(kx.^2 + ky.^2);
+ 
+ % Generate random Gaussian noise with zero mean and unit variance
+ phase = randn(N);
+ 
+ % Set Gaussian function for phase screen and add random noise
+ %phase = exp(-((kx.^2 + ky.^2)/(2*sigma^2))).*phase;
+
+ % Plot phase screen
+ figure;
+ imagesc(phase);
+ axis equal tight;
+ colormap(gray);
+ title('Gaussian random phase screen');
+ xlabel('x (pixels)');
+ ylabel('y (pixels)');
